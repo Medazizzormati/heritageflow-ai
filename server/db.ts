@@ -90,3 +90,60 @@ export async function getUserByOpenId(openId: string) {
 }
 
 // TODO: add feature queries here as your schema grows.
+
+// Heritage Sites queries
+export async function getAllHeritageSites() {
+  const db = await getDb();
+  if (!db) return [];
+  const { heritageSites } = await import("../drizzle/schema");
+  return await db.select().from(heritageSites);
+}
+
+export async function getHeritageSiteById(id: number) {
+  const db = await getDb();
+  if (!db) return undefined;
+  const { heritageSites } = await import("../drizzle/schema");
+  const result = await db.select().from(heritageSites).where(eq(heritageSites.id, id)).limit(1);
+  return result.length > 0 ? result[0] : undefined;
+}
+
+// User Preferences queries
+export async function getUserPreferences(userId: number) {
+  const db = await getDb();
+  if (!db) return undefined;
+  const { userPreferences } = await import("../drizzle/schema");
+  const result = await db.select().from(userPreferences).where(eq(userPreferences.userId, userId)).limit(1);
+  return result.length > 0 ? result[0] : undefined;
+}
+
+// Recommendations queries
+export async function getUserRecommendations(userId: number) {
+  const db = await getDb();
+  if (!db) return [];
+  const { recommendations } = await import("../drizzle/schema");
+  return await db.select().from(recommendations).where(eq(recommendations.userId, userId));
+}
+
+// Visits queries
+export async function getUserVisits(userId: number) {
+  const db = await getDb();
+  if (!db) return [];
+  const { visits } = await import("../drizzle/schema");
+  return await db.select().from(visits).where(eq(visits.userId, userId));
+}
+
+// Itineraries queries
+export async function getUserItineraries(userId: number) {
+  const db = await getDb();
+  if (!db) return [];
+  const { itineraries } = await import("../drizzle/schema");
+  return await db.select().from(itineraries).where(eq(itineraries.userId, userId));
+}
+
+// User Badges queries
+export async function getUserBadges(userId: number) {
+  const db = await getDb();
+  if (!db) return [];
+  const { userBadges } = await import("../drizzle/schema");
+  return await db.select().from(userBadges).where(eq(userBadges.userId, userId));
+}
