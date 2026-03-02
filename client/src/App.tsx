@@ -7,8 +7,7 @@ import { ThemeProvider } from "./contexts/ThemeContext";
 import Home from "./pages/Home";
 import Explore from "./pages/Explore";
 import Recommendations from "./pages/Recommendations";
-import Dashboard from "./pages/Dashboard";
-import Chatbot from "./pages/Chatbot";
+import Presentation3D from "./pages/Presentation3D";
 
 function Router() {
   return (
@@ -16,8 +15,7 @@ function Router() {
       <Route path={"/"} component={Home} />
       <Route path={"/explore"} component={Explore} />
       <Route path={"/recommendations"} component={Recommendations} />
-      <Route path={"/dashboard"} component={Dashboard} />
-      <Route path={"/chatbot"} component={Chatbot} />
+      <Route path={"/presentation"} component={Presentation3D} />
       <Route path={"/404"} component={NotFound} />
       <Route component={NotFound} />
     </Switch>

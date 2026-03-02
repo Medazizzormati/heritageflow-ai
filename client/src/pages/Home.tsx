@@ -22,20 +22,20 @@ export default function Home() {
           <div className="flex items-center gap-4">
             {isAuthenticated ? (
               <>
-                <Button
-                  variant="ghost"
-                  onClick={() => setLocation("/explore")}
-                  className="text-white hover:text-cyan-400"
-                >
-                  Explorer
-                </Button>
-                <Button
-                  variant="ghost"
-                  onClick={() => setLocation("/dashboard")}
-                  className="text-white hover:text-cyan-400"
-                >
-                  Tableau de Bord
-                </Button>
+            <Button
+              variant="ghost"
+              onClick={() => setLocation("/explore")}
+              className="text-white hover:text-cyan-400"
+            >
+              Explorer
+            </Button>
+            <Button
+              variant="ghost"
+              onClick={() => setLocation("/presentation")}
+              className="text-white hover:text-cyan-400"
+            >
+              Présentation 3D
+            </Button>
                 <span className="text-sm text-slate-400">{user?.name}</span>
               </>
             ) : (
