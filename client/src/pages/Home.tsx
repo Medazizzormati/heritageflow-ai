@@ -50,13 +50,14 @@ export default function Home() {
             >
               Explorer
             </Button>
-            <Button
-              variant="ghost"
-              onClick={() => setLocation("/presentation-advanced")}
-              className="text-white hover:text-cyan-400"
-            >
-              Presentation 3D
-            </Button>
+            <a href="https://heritage3d-guyiaqvs.manus.space/" target="_blank" rel="noopener noreferrer">
+              <Button
+                variant="ghost"
+                className="text-white hover:text-cyan-400"
+              >
+                Presentation 3D
+              </Button>
+            </a>
             <a href="https://github.com/Medazizzormati/heritageflow-ai" target="_blank" rel="noopener noreferrer">
               <Button
                 variant="ghost"
