@@ -8,6 +8,7 @@ import Home from "./pages/Home";
 import Explore from "./pages/Explore";
 import Recommendations from "./pages/Recommendations";
 import Presentation3D from "./pages/Presentation3D";
+import SiteDetail from "./pages/SiteDetail";
 
 function Router() {
   return (
@@ -16,6 +17,7 @@ function Router() {
       <Route path={"/explore"} component={Explore} />
       <Route path={"/recommendations"} component={Recommendations} />
       <Route path={"/presentation"} component={Presentation3D} />
+      <Route path={"/site/:id"} component={SiteDetail} />
       <Route path={"/404"} component={NotFound} />
       <Route component={NotFound} />
     </Switch>

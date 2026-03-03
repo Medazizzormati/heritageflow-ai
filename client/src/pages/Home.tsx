@@ -2,7 +2,30 @@ import { useAuth } from "@/_core/hooks/useAuth";
 import { Button } from "@/components/ui/button";
 import { useLocation } from "wouter";
 import { getLoginUrl } from "@/const";
-import { MapPin, Sparkles, Users, Leaf, Globe, Zap } from "lucide-react";
+import { MapPin, Sparkles, Users, Leaf, Globe, Zap, LogOut } from "lucide-react";
+import { trpc } from "@/lib/trpc";
+
+function LogoutButton() {
+  const logoutMutation = trpc.auth.logout.useMutation();
+  const [, setLocation] = useLocation();
+
+  const handleLogout = async () => {
+    await logoutMutation.mutateAsync();
+    setLocation("/");
+  };
+
+  return (
+    <Button
+      variant="ghost"
+      onClick={handleLogout}
+      className="text-slate-400 hover:text-red-400"
+      disabled={logoutMutation.isPending}
+    >
+      <LogOut className="w-4 h-4 mr-2" />
+      Deconnexion
+    </Button>
+  );
+}
 
 export default function Home() {
   const { user, isAuthenticated } = useAuth();
@@ -34,9 +57,10 @@ export default function Home() {
               onClick={() => setLocation("/presentation")}
               className="text-white hover:text-cyan-400"
             >
-              Présentation 3D
+              Presentation 3D
             </Button>
                 <span className="text-sm text-slate-400">{user?.name}</span>
+                <LogoutButton />
               </>
             ) : (
               <a href={getLoginUrl()}>
@@ -55,10 +79,10 @@ export default function Home() {
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
               <h1 className="text-5xl md:text-6xl font-bold mb-6 leading-tight">
-                Explorez le Patrimoine Culturel de Manière Intelligente et Durable
+                Explorez le Patrimoine Culturel de Maniere Intelligente et Durable
               </h1>
               <p className="text-xl text-slate-300 mb-8">
-                HeritageFlow AI combine l'intelligence artificielle, la cartographie interactive et la gestion des flux touristiques pour transformer votre expérience de découverte culturelle.
+                HeritageFlow AI combine l'intelligence artificielle, la cartographie interactive et la gestion des flux touristiques pour transformer votre experience de decouverte culturelle.
               </p>
               <div className="flex gap-4">
                 {isAuthenticated ? (
@@ -92,7 +116,7 @@ export default function Home() {
                 <div className="space-y-4">
                   <div className="flex items-center gap-3">
                     <Sparkles className="w-6 h-6 text-cyan-400" />
-                    <span className="text-lg">Recommandations Personnalisées par IA</span>
+                    <span className="text-lg">Recommandations Personnalisees par IA</span>
                   </div>
                   <div className="flex items-center gap-3">
                     <MapPin className="w-6 h-6 text-amber-400" />
@@ -100,7 +124,7 @@ export default function Home() {
                   </div>
                   <div className="flex items-center gap-3">
                     <Users className="w-6 h-6 text-cyan-400" />
-                    <span className="text-lg">Gestion des Flux en Temps Réel</span>
+                    <span className="text-lg">Gestion des Flux en Temps Reel</span>
                   </div>
                   <div className="flex items-center gap-3">
                     <Leaf className="w-6 h-6 text-amber-400" />
@@ -116,38 +140,38 @@ export default function Home() {
       {/* Features Section */}
       <section className="py-20 px-6 bg-slate-800/50">
         <div className="max-w-7xl mx-auto">
-          <h2 className="text-4xl font-bold mb-12 text-center">Nos Fonctionnalités Principales</h2>
+          <h2 className="text-4xl font-bold mb-12 text-center">Nos Fonctionnalites Principales</h2>
           <div className="grid md:grid-cols-3 gap-8">
             {[
               {
                 icon: <Sparkles className="w-8 h-8" />,
                 title: "Recommandations Intelligentes",
-                description: "Obtenez des itinéraires personnalisés basés sur vos intérêts, budget et durée de visite.",
+                description: "Obtenez des itineraires personnalises bases sur vos interets, budget et duree de visite.",
               },
               {
                 icon: <MapPin className="w-8 h-8" />,
                 title: "Cartographie Interactive",
-                description: "Explorez les sites patrimoniaux avec informations complètes et fréquentation en temps réel.",
+                description: "Explorez les sites patrimoniaux avec informations completes et frequentation en temps reel.",
               },
               {
                 icon: <Zap className="w-8 h-8" />,
                 title: "Assistant IA 24/7",
-                description: "Chatbot multilingue pour répondre à vos questions sur le patrimoine et les recommandations.",
+                description: "Chatbot multilingue pour repondre a vos questions sur le patrimoine et les recommandations.",
               },
               {
                 icon: <Users className="w-8 h-8" />,
                 title: "Gestion des Flux",
-                description: "Tableau de bord pour gestionnaires avec prédictions et alertes de surcharge.",
+                description: "Tableau de bord pour gestionnaires avec predictions et alertes de surcharge.",
               },
               {
                 icon: <Leaf className="w-8 h-8" />,
                 title: "Tourisme Durable",
-                description: "Badges et gamification pour encourager le tourisme responsable et la préservation.",
+                description: "Badges et gamification pour encourager le tourisme responsable et la preservation.",
               },
               {
                 icon: <Globe className="w-8 h-8" />,
                 title: "Reconstruction Virtuelle",
-                description: "Visualisez les monuments dans leur état original grâce à la technologie IA.",
+                description: "Visualisez les monuments dans leur etat original grace a la technologie IA.",
               },
             ].map((feature, idx) => (
               <div
@@ -166,9 +190,9 @@ export default function Home() {
       {/* CTA Section */}
       <section className="py-20 px-6">
         <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-4xl font-bold mb-6">Prêt à Transformer Votre Expérience Touristique?</h2>
+          <h2 className="text-4xl font-bold mb-6">Pret a Transformer Votre Experience Touristique?</h2>
           <p className="text-xl text-slate-300 mb-8">
-            Rejoignez des milliers de visiteurs qui découvrent le patrimoine culturel de manière intelligente et durable.
+            Rejoignez des milliers de visiteurs qui decouvrent le patrimoine culturel de maniere intelligente et durable.
           </p>
           {isAuthenticated ? (
             <Button

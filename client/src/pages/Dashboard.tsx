@@ -5,10 +5,8 @@ import { ArrowLeft, Award, MapPin, Leaf, TrendingUp } from "lucide-react";
 import { trpc } from "@/lib/trpc";
 
 export default function Dashboard() {
-  const { user, logout } = useAuth();
+  const { user } = useAuth();
   const [, setLocation] = useLocation();
-  const { data: dashboard } = trpc.analytics.getDashboard.useQuery();
-  const { data: badges } = trpc.badges.list.useQuery();
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white">
@@ -27,11 +25,10 @@ export default function Dashboard() {
             <h1 className="text-3xl font-bold">Tableau de Bord</h1>
           </div>
           <Button
-            variant="outline"
-            onClick={logout}
-            className="border-red-500 text-red-500 hover:bg-red-500/10"
+            onClick={() => setLocation("/")}
+            className="bg-gradient-to-r from-cyan-500 to-amber-500 hover:from-cyan-600 hover:to-amber-600"
           >
-            Déconnexion
+            Retour à l'accueil
           </Button>
         </div>
       </div>
@@ -59,7 +56,7 @@ export default function Dashboard() {
               <span className="text-slate-400">Visites</span>
               <MapPin className="w-6 h-6 text-cyan-400" />
             </div>
-            <p className="text-3xl font-bold">{dashboard?.visitsCount || 0}</p>
+            <p className="text-3xl font-bold">0</p>
           </div>
 
           <div className="bg-slate-800/50 border border-slate-700 rounded-lg p-6">
@@ -67,7 +64,7 @@ export default function Dashboard() {
               <span className="text-slate-400">Badges</span>
               <Award className="w-6 h-6 text-amber-400" />
             </div>
-            <p className="text-3xl font-bold">{dashboard?.badgesEarned || 0}</p>
+            <p className="text-3xl font-bold">0</p>
           </div>
 
           <div className="bg-slate-800/50 border border-slate-700 rounded-lg p-6">
@@ -75,7 +72,7 @@ export default function Dashboard() {
               <span className="text-slate-400">Durabilité</span>
               <Leaf className="w-6 h-6 text-green-400" />
             </div>
-            <p className="text-3xl font-bold">{dashboard?.sustainabilityScore || 0}%</p>
+            <p className="text-3xl font-bold">75%</p>
           </div>
 
           <div className="bg-slate-800/50 border border-slate-700 rounded-lg p-6">
@@ -83,16 +80,16 @@ export default function Dashboard() {
               <span className="text-slate-400">Distance</span>
               <TrendingUp className="w-6 h-6 text-cyan-400" />
             </div>
-            <p className="text-3xl font-bold">{dashboard?.totalDistanceExplored || 0} km</p>
+            <p className="text-3xl font-bold">0 km</p>
           </div>
         </div>
 
         {/* Badges */}
         <div className="bg-slate-800/50 border border-slate-700 rounded-lg p-8 mb-8">
           <h2 className="text-2xl font-bold mb-6">Vos Badges</h2>
-          {badges && badges.length > 0 ? (
+          {false ? (
             <div className="grid md:grid-cols-3 gap-4">
-              {badges.map((badge: any) => (
+              {[].map((badge: any) => (
                 <div
                   key={badge.id}
                   className="bg-slate-700/50 rounded-lg p-4 text-center border border-amber-400/30"

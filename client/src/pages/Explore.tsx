@@ -115,6 +115,7 @@ export default function Explore() {
                   <Button
                     variant="outline"
                     className="w-full border-cyan-400 text-cyan-400 hover:bg-cyan-400/10"
+                    onClick={() => setLocation(`/site/${site.id}`)}
                   >
                     Voir Détails
                   </Button>
