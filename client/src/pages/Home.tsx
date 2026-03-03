@@ -43,8 +43,6 @@ export default function Home() {
             </span>
           </div>
           <div className="flex items-center gap-4">
-            {isAuthenticated ? (
-              <>
             <Button
               variant="ghost"
               onClick={() => setLocation("/explore")}
@@ -68,26 +66,17 @@ export default function Home() {
                 <Github className="w-5 h-5" />
               </Button>
             </a>
+            {isAuthenticated ? (
+              <>
                 <span className="text-sm text-slate-400">{user?.name}</span>
                 <LogoutButton />
               </>
             ) : (
-              <>
-              <a href="https://github.com/Medazizzormati/heritageflow-ai" target="_blank" rel="noopener noreferrer">
-                <Button
-                  variant="ghost"
-                  className="text-white hover:text-cyan-400"
-                  title="GitHub Repository"
-                >
-                  <Github className="w-5 h-5" />
-                </Button>
-              </a>
               <a href={getLoginUrl()}>
                 <Button className="bg-gradient-to-r from-cyan-500 to-amber-500 hover:from-cyan-600 hover:to-amber-600 text-white">
                   Connexion
                 </Button>
               </a>
-              </>
             )}
           </div>
         </div>
