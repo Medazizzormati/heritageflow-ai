@@ -54,7 +54,7 @@ export default function Home() {
             </Button>
             <Button
               variant="ghost"
-              onClick={() => setLocation("/presentation")}
+              onClick={() => setLocation("/presentation-advanced")}
               className="text-white hover:text-cyan-400"
             >
               Presentation 3D
