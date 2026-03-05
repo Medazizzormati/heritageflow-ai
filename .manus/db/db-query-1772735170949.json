@@ -1,0 +1,9 @@
+{
+  "query": "UPDATE users SET role = 'admin' WHERE name LIKE '%Medaziz%' OR name LIKE '%Zormati%';",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway04.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2h5mfgdzu6ahbd8.ef4944a6baf0 --database VkUyAxykvKfAi34VN3REzZ --execute UPDATE users SET role = 'admin' WHERE name LIKE '%Medaziz%' OR name LIKE '%Zormati%';",
+  "rows": [],
+  "messages": [],
+  "stdout": "",
+  "stderr": "",
+  "execution_time_ms": 456
+}

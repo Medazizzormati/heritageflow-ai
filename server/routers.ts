@@ -35,6 +35,7 @@ export const appRouter = router({
       }),
 
     seed: publicProcedure.mutation(async () => {
+      // This is a public endpoint for seeding - in production, should be protected
       const database = await db.getDb();
       if (!database) return { success: false, message: "Database not available" };
 

@@ -3,17 +3,39 @@ import { Button } from "@/components/ui/button";
 import { useLocation, useRoute } from "wouter";
 import { ArrowLeft, MapPin, Clock, DollarSign, Users, Star } from "lucide-react";
 import { trpc } from "@/lib/trpc";
+import { useEffect, useRef, useState } from "react";
+import { MapView } from "@/components/Map";
 
 export default function SiteDetail() {
   const { user } = useAuth();
   const [, setLocation] = useLocation();
   const [isDetailPage, params] = useRoute("/site/:id");
   const siteId = params?.id ? parseInt(params.id) : null;
+  const [mapReady, setMapReady] = useState(false);
+  const mapRef = useRef(null);
 
   const { data: site, isLoading } = trpc.sites.getById.useQuery(
     { id: siteId || 0 },
     { enabled: !!siteId }
   );
+
+  const addToItinerary = trpc.itineraries.create.useMutation({
+    onSuccess: () => {
+      alert("Site ajouté à votre itinéraire!");
+    },
+    onError: (error) => {
+      alert("Erreur: " + error.message);
+    },
+  });
+
+  const handleAddToItinerary = () => {
+    if (!user || !site) return;
+    addToItinerary.mutate({
+      name: `Visite de ${site.name}`,
+      description: site.description || "",
+      siteIds: [site.id || 0],
+    });
+  };
 
   if (isLoading) {
     return (
@@ -54,9 +76,26 @@ export default function SiteDetail() {
       </div>
 
       <div className="max-w-4xl mx-auto px-6 py-12">
-        {/* Hero Image */}
-        <div className="bg-gradient-to-r from-cyan-500/20 to-amber-500/20 rounded-lg h-96 flex items-center justify-center mb-8 border border-slate-700">
-          <MapPin className="w-24 h-24 text-cyan-400" />
+        {/* Hero Map */}
+        <div className="bg-gradient-to-r from-cyan-500/20 to-amber-500/20 rounded-lg h-96 mb-8 border border-slate-700 overflow-hidden">
+          <MapView
+            onMapReady={(map) => {
+              setMapReady(true);
+              if (site?.latitude && site?.longitude) {
+                const lat = parseFloat(site.latitude);
+                const lng = parseFloat(site.longitude);
+                map.setCenter({ lat, lng });
+                map.setZoom(15);
+                if (window.google?.maps?.Marker) {
+                  new window.google.maps.Marker({
+                    position: { lat, lng },
+                    map: map,
+                    title: site.name,
+                  });
+                }
+              }
+            }}
+          />
         </div>
 
         {/* Main Content */}
@@ -152,8 +191,12 @@ export default function SiteDetail() {
               </div>
 
               <div className="space-y-3">
-                <Button className="w-full bg-gradient-to-r from-cyan-500 to-amber-500 hover:from-cyan-600 hover:to-amber-600">
-                  Ajouter à mon Itinéraire
+                <Button 
+                  className="w-full bg-gradient-to-r from-cyan-500 to-amber-500 hover:from-cyan-600 hover:to-amber-600"
+                  onClick={handleAddToItinerary}
+                  disabled={!user || addToItinerary.isPending}
+                >
+                  {addToItinerary.isPending ? "Ajout en cours..." : "Ajouter à mon Itinéraire"}
                 </Button>
                 <Button
                   variant="outline"

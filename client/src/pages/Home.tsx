@@ -30,6 +30,17 @@ function LogoutButton() {
 export default function Home() {
   const { user, isAuthenticated } = useAuth();
   const [, setLocation] = useLocation();
+  const seedSites = trpc.sites.seed.useMutation();
+
+  const handleSeedSites = async () => {
+    try {
+      await seedSites.mutateAsync();
+      alert("Sites tunisiens chargés avec succès!");
+      window.location.reload();
+    } catch (error) {
+      alert("Erreur lors du chargement des sites");
+    }
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white">
@@ -43,6 +54,15 @@ export default function Home() {
             </span>
           </div>
           <div className="flex items-center gap-4">
+            <Button
+              variant="ghost"
+              onClick={handleSeedSites}
+              className="text-white hover:text-green-400 text-xs"
+              disabled={seedSites.isPending}
+              title="Charger les sites patrimoniaux tunisiens"
+            >
+              {seedSites.isPending ? "Chargement..." : "🇹🇳 Sites TN"}
+            </Button>
             <Button
               variant="ghost"
               onClick={() => setLocation("/explore")}
