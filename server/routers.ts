@@ -5,6 +5,8 @@ import { publicProcedure, router, protectedProcedure } from "./_core/trpc";
 import { z } from "zod";
 import * as db from "./db";
 import { invokeLLM } from "./_core/llm";
+import { heritageSites } from "../drizzle/schema";
+import { eq } from "drizzle-orm";
 
 export const appRouter = router({
   system: systemRouter,
@@ -31,6 +33,48 @@ export const appRouter = router({
       .query(async ({ input }) => {
         return await db.getHeritageSiteById(input.id);
       }),
+
+    seed: publicProcedure.mutation(async () => {
+      const database = await db.getDb();
+      if (!database) return { success: false, message: "Database not available" };
+
+      try {
+        // Delete existing sites
+        await database.delete(heritageSites);
+
+        // Insert Tunisian heritage sites
+        const tunisianSites = [
+          { name: 'Médina de Tunis', description: 'Ancienne médina avec souks traditionnels et mosquées historiques', latitude: '36.7969', longitude: '10.1669', category: 'archaeology', historicalPeriod: 'Medieval-Ottoman', currentCrowdLevel: 45, maxCapacity: 8000 },
+          { name: 'Amphithéâtre d\'El Djem', description: 'Amphithéâtre romain du 3e siècle, le plus grand d\'Afrique du Nord', latitude: '35.2969', longitude: '10.7347', category: 'monument', historicalPeriod: 'Roman', currentCrowdLevel: 32, maxCapacity: 7000 },
+          { name: 'Dougga', description: 'Site archéologique romain avec temples, théâtre et maisons anciennes', latitude: '36.4617', longitude: '9.2267', category: 'archaeology', historicalPeriod: 'Roman', currentCrowdLevel: 28, maxCapacity: 6000 },
+          { name: 'Kairouan', description: 'Ville sainte avec la Grande Mosquée et médina historique', latitude: '35.6711', longitude: '10.0967', category: 'monument', historicalPeriod: 'Islamic', currentCrowdLevel: 35, maxCapacity: 7500 },
+          { name: 'Musée du Bardo', description: 'Musée national avec mosaïques romaines et artefacts archéologiques', latitude: '36.8033', longitude: '10.1658', category: 'museum', historicalPeriod: 'Multi-period', currentCrowdLevel: 56, maxCapacity: 10000 },
+          { name: 'Carthage', description: 'Ruines de l\'ancienne cité punique et romaine', latitude: '36.8621', longitude: '10.3268', category: 'archaeology', historicalPeriod: 'Punic-Roman', currentCrowdLevel: 42, maxCapacity: 8500 },
+          { name: 'Île de Djerba', description: 'Île historique avec synagogues anciennes et forteresses', latitude: '33.8869', longitude: '10.9369', category: 'monument', historicalPeriod: 'Medieval-Ottoman', currentCrowdLevel: 68, maxCapacity: 12000 },
+          { name: 'Sidi Bou Saïd', description: 'Village côtier pittoresque avec architecture traditionnelle bleue et blanche', latitude: '36.8689', longitude: '10.3597', category: 'monument', historicalPeriod: 'Ottoman', currentCrowdLevel: 52, maxCapacity: 9000 },
+          { name: 'Tozeur', description: 'Oasis du désert avec architecture traditionnelle et palmeraie', latitude: '33.9197', longitude: '8.1347', category: 'monument', historicalPeriod: 'Ottoman', currentCrowdLevel: 29, maxCapacity: 6000 },
+          { name: 'Sbeitla', description: 'Site archéologique romain avec temples et basiliques byzantines', latitude: '35.7833', longitude: '9.7833', category: 'archaeology', historicalPeriod: 'Roman-Byzantine', currentCrowdLevel: 18, maxCapacity: 4500 },
+        ];
+
+        for (const site of tunisianSites) {
+          await database.insert(heritageSites).values({
+            name: site.name,
+            description: site.description,
+            latitude: site.latitude,
+            longitude: site.longitude,
+            category: site.category,
+            historicalPeriod: site.historicalPeriod,
+            currentCrowdLevel: site.currentCrowdLevel,
+            maxCapacity: site.maxCapacity,
+          });
+        }
+
+        return { success: true, message: "10 Tunisian heritage sites inserted successfully!" };
+      } catch (error) {
+        console.error("Seed error:", error);
+        return { success: false, message: "Error seeding database" };
+      }
+    }),
   }),
 
   // User Preferences

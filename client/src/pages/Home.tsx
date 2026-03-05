@@ -50,34 +50,33 @@ export default function Home() {
             >
               Explorer
             </Button>
-            <a href="https://heritage3d-guyiaqvs.manus.space/" target="_blank" rel="noopener noreferrer">
-              <Button
-                variant="ghost"
-                className="text-white hover:text-cyan-400"
-              >
-                Presentation 3D
-              </Button>
-            </a>
-            <a href="https://github.com/Medazizzormati/heritageflow-ai" target="_blank" rel="noopener noreferrer">
-              <Button
-                variant="ghost"
-                className="text-white hover:text-cyan-400"
-                title="GitHub Repository"
-              >
-                <Github className="w-5 h-5" />
-              </Button>
-            </a>
+            <Button
+              variant="ghost"
+              className="text-white hover:text-cyan-400"
+              onClick={() => window.open('https://heritage3d-guyiaqvs.manus.space/', '_blank')}
+            >
+              Presentation 3D
+            </Button>
+            <Button
+              variant="ghost"
+              className="text-white hover:text-cyan-400"
+              title="GitHub Repository"
+              onClick={() => window.open('https://github.com/Medazizzormati/heritageflow-ai', '_blank')}
+            >
+              <Github className="w-5 h-5" />
+            </Button>
             {isAuthenticated ? (
               <>
                 <span className="text-sm text-slate-400">{user?.name}</span>
                 <LogoutButton />
               </>
             ) : (
-              <a href={getLoginUrl()}>
-                <Button className="bg-gradient-to-r from-cyan-500 to-amber-500 hover:from-cyan-600 hover:to-amber-600 text-white">
-                  Connexion
-                </Button>
-              </a>
+              <Button 
+                className="bg-gradient-to-r from-cyan-500 to-amber-500 hover:from-cyan-600 hover:to-amber-600 text-white"
+                onClick={() => window.location.href = getLoginUrl()}
+              >
+                Connexion
+              </Button>
             )}
           </div>
         </div>
@@ -112,11 +111,12 @@ export default function Home() {
                     </Button>
                   </>
                 ) : (
-                  <a href={getLoginUrl()}>
-                    <Button className="bg-gradient-to-r from-cyan-500 to-amber-500 hover:from-cyan-600 hover:to-amber-600 text-white px-8 py-3 text-lg">
-                      Commencer Maintenant
-                    </Button>
-                  </a>
+                  <Button 
+                    className="bg-gradient-to-r from-cyan-500 to-amber-500 hover:from-cyan-600 hover:to-amber-600 text-white px-8 py-3 text-lg"
+                    onClick={() => window.location.href = getLoginUrl()}
+                  >
+                    Commencer Maintenant
+                  </Button>
                 )}
               </div>
             </div>
@@ -209,12 +209,13 @@ export default function Home() {
                 <h3 className="text-2xl font-bold">Presentation Professionnelle</h3>
               </div>
               <p className="text-slate-400 mb-6">Consultez notre presentation complete avec 15 slides detaillant la vision, l'architecture et l'impact de HeritageFlow AI.</p>
-              <a href="https://manus.im/share/file/82b34837-43fb-45df-8a99-0ed8d8b537e1" target="_blank" rel="noopener noreferrer">
-                <Button className="bg-gradient-to-r from-cyan-500 to-cyan-600 hover:from-cyan-600 hover:to-cyan-700 w-full">
-                  <FileText className="w-4 h-4 mr-2" />
-                  Voir la Presentation
-                </Button>
-              </a>
+              <Button 
+                className="bg-gradient-to-r from-cyan-500 to-cyan-600 hover:from-cyan-600 hover:to-cyan-700 w-full"
+                onClick={() => window.open('https://heritage3d-guyiaqvs.manus.space/', '_blank')}
+              >
+                <FileText className="w-4 h-4 mr-2" />
+                Voir la Presentation
+              </Button>
             </div>
 
             {/* Video Demo */}
@@ -248,11 +249,12 @@ export default function Home() {
               Commencer l'Exploration
             </Button>
           ) : (
-            <a href={getLoginUrl()}>
-              <Button className="bg-gradient-to-r from-cyan-500 to-amber-500 hover:from-cyan-600 hover:to-amber-600 text-white px-8 py-3 text-lg">
-                Se Connecter Maintenant
-              </Button>
-            </a>
+            <Button 
+              className="bg-gradient-to-r from-cyan-500 to-amber-500 hover:from-cyan-600 hover:to-amber-600 text-white px-8 py-3 text-lg"
+              onClick={() => window.location.href = getLoginUrl()}
+            >
+              Se Connecter Maintenant
+            </Button>
           )}
         </div>
       </section>

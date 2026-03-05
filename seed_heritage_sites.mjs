@@ -8,16 +8,16 @@ const connection = await mysql.createConnection({
 });
 
 const sites = [
-  { name: 'Colosseum', location: 'Rome, Italy', category: 'monument', description: 'Ancient Roman amphitheater', latitude: 41.8902, longitude: 12.4924, currentVisitors: 5234, maxCapacity: 10000 },
-  { name: 'Sagrada Familia', location: 'Barcelona, Spain', category: 'monument', description: 'Basilica under construction since 1883', latitude: 41.4036, longitude: 2.1744, currentVisitors: 3421, maxCapacity: 8000 },
-  { name: 'Louvre Museum', location: 'Paris, France', category: 'museum', description: 'Worlds largest art museum', latitude: 48.8606, longitude: 2.3352, currentVisitors: 8932, maxCapacity: 15000 },
-  { name: 'Great Wall', location: 'China', category: 'monument', description: 'Ancient defensive wall', latitude: 40.4319, longitude: 116.5704, currentVisitors: 12000, maxCapacity: 20000 },
-  { name: 'Taj Mahal', location: 'Agra, India', category: 'monument', description: 'Mausoleum of white marble', latitude: 27.1751, longitude: 78.0421, currentVisitors: 6543, maxCapacity: 12000 },
-  { name: 'British Museum', location: 'London, UK', category: 'museum', description: 'Museum of human history and culture', latitude: 51.5194, longitude: -0.1270, currentVisitors: 7654, maxCapacity: 14000 },
-  { name: 'Acropolis', location: 'Athens, Greece', category: 'archaeology', description: 'Ancient Greek citadel', latitude: 37.9715, longitude: 23.7267, currentVisitors: 4321, maxCapacity: 9000 },
-  { name: 'Statue of Liberty', location: 'New York, USA', category: 'monument', description: 'Colossal neoclassical sculpture', latitude: 40.6892, longitude: -74.0445, currentVisitors: 2543, maxCapacity: 5000 },
-  { name: 'Uffizi Gallery', location: 'Florence, Italy', category: 'museum', description: 'Renaissance art museum', latitude: 43.7674, longitude: 11.2556, currentVisitors: 5432, maxCapacity: 10000 },
-  { name: 'Angkor Wat', location: 'Cambodia', category: 'archaeology', description: 'Largest religious monument in the world', latitude: 13.3667, longitude: 103.8667, currentVisitors: 3210, maxCapacity: 8000 },
+  { name: 'Médina de Tunis', location: 'Tunis, Tunisie', category: 'archaeology', description: 'Ancienne médina avec souks traditionnels et mosquées historiques', latitude: 36.7969, longitude: 10.1669, currentVisitors: 4500, maxCapacity: 8000 },
+  { name: 'Amphithéâtre d\'El Djem', location: 'El Djem, Tunisie', category: 'monument', description: 'Amphithéâtre romain du 3e siècle, le plus grand d\'Afrique du Nord', latitude: 35.2969, longitude: 10.7347, currentVisitors: 3200, maxCapacity: 7000 },
+  { name: 'Dougga', location: 'Dougga, Tunisie', category: 'archaeology', description: 'Site archéologique romain avec temples, théâtre et maisons anciennes', latitude: 36.4617, longitude: 9.2267, currentVisitors: 2800, maxCapacity: 6000 },
+  { name: 'Kairouan', location: 'Kairouan, Tunisie', category: 'monument', description: 'Ville sainte avec la Grande Mosquée et médina historique', latitude: 35.6711, longitude: 10.0967, currentVisitors: 3500, maxCapacity: 7500 },
+  { name: 'Musée du Bardo', location: 'Tunis, Tunisie', category: 'museum', description: 'Musée national avec mosaïques romaines et artefacts archéologiques', latitude: 36.8033, longitude: 10.1658, currentVisitors: 5600, maxCapacity: 10000 },
+  { name: 'Carthage', location: 'Carthage, Tunisie', category: 'archaeology', description: 'Ruines de l\'ancienne cité punique et romaine', latitude: 36.8621, longitude: 10.3268, currentVisitors: 4200, maxCapacity: 8500 },
+  { name: 'Île de Djerba', location: 'Djerba, Tunisie', category: 'monument', description: 'Île historique avec synagogues anciennes et forteresses', latitude: 33.8869, longitude: 10.9369, currentVisitors: 6800, maxCapacity: 12000 },
+  { name: 'Sidi Bou Saïd', location: 'Sidi Bou Saïd, Tunisie', category: 'monument', description: 'Village côtier pittoresque avec architecture traditionnelle bleue et blanche', latitude: 36.8689, longitude: 10.3597, currentVisitors: 5200, maxCapacity: 9000 },
+  { name: 'Tozeur', location: 'Tozeur, Tunisie', category: 'monument', description: 'Oasis du désert avec architecture traditionnelle et palmeraie', latitude: 33.9197, longitude: 8.1347, currentVisitors: 2900, maxCapacity: 6000 },
+  { name: 'Sbeitla', location: 'Sbeitla, Tunisie', category: 'archaeology', description: 'Site archéologique romain avec temples et basiliques byzantines', latitude: 35.7833, longitude: 9.7833, currentVisitors: 1800, maxCapacity: 4500 },
 ];
 
 for (const site of sites) {
@@ -27,5 +27,5 @@ for (const site of sites) {
   );
 }
 
-console.log('✅ 10 heritage sites inserted successfully!');
+console.log('✅ 10 sites patrimoniaux tunisiens insérés avec succès!');
 await connection.end();
