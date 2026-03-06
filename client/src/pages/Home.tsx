@@ -4,6 +4,7 @@ import { useLocation } from "wouter";
 import { getLoginUrl } from "@/const";
 import { MapPin, Sparkles, Users, Leaf, Globe, Zap, LogOut, Github, Play, FileText } from "lucide-react";
 import { trpc } from "@/lib/trpc";
+import { showToast } from "@/components/Toast";
 
 function LogoutButton() {
   const logoutMutation = trpc.auth.logout.useMutation();
@@ -35,10 +36,10 @@ export default function Home() {
   const handleSeedSites = async () => {
     try {
       await seedSites.mutateAsync();
-      alert("Sites tunisiens chargés avec succès!");
-      window.location.reload();
+      showToast("Sites tunisiens chargés avec succès!", "success", 2000);
+      setTimeout(() => window.location.reload(), 1500);
     } catch (error) {
-      alert("Erreur lors du chargement des sites");
+      showToast("Erreur lors du chargement des sites", "error", 3000);
     }
   };
 

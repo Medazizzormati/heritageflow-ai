@@ -5,6 +5,7 @@ import { ArrowLeft, MapPin, Clock, DollarSign, Users, Star } from "lucide-react"
 import { trpc } from "@/lib/trpc";
 import { useEffect, useRef, useState } from "react";
 import { MapView } from "@/components/Map";
+import { showToast } from "@/components/Toast";
 
 export default function SiteDetail() {
   const { user } = useAuth();
@@ -21,10 +22,10 @@ export default function SiteDetail() {
 
   const addToItinerary = trpc.itineraries.create.useMutation({
     onSuccess: () => {
-      alert("Site ajouté à votre itinéraire!");
+      showToast("Site ajouté à votre itinéraire!", "success", 2000);
     },
     onError: (error) => {
-      alert("Erreur: " + error.message);
+      showToast("Erreur: " + error.message, "error", 3000);
     },
   });
 
